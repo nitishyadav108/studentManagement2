@@ -1,0 +1,265 @@
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    background-color: #A1BC98;
+}
+
+h1{
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.container{
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+}
+
+.card{
+    height: auto;
+    width: 3rems;
+    background-color:#FFB76C;
+    margin: 20px;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    border: 2px solid black;
+}
+
+.card-no{
+    font-size: small;
+    font-style: italic;
+}
+
+.image{
+    height: 6rem;
+    width: 5rem;
+    margin: 15px 25px 15px 0;
+}
+
+.details{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button{
+    height: 2rem;
+    width: 3.5rem;
+    border-radius: 10px;
+    background-color: rgb(219, 59, 62);
+}
+
+button a{
+    text-decoration:none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+button:hover{
+    background-color:black;
+    color: white;
+    cursor: pointer;
+}
+
+.info-edit{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.delete{
+    background-color: red;
+}
+
+.edit{
+    background-color: green;
+}
+
+.view{
+    background-color: brown;
+}
+
+.name{
+    font-size: 1.4rem;
+    margin: 0.7rem 0 ;
+    
+}
+
+.course{
+    font-size:1.1rem ;
+}
+
+.header{
+    background-color: #73AF6F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-student{
+    text-decoration: none;
+    margin-right:5rem ;
+    width: 150px;
+    height: 40px;
+    background-color: red;
+
+}
+.box{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.display-view{   
+    width:40%;
+    background-color:#FFB76C;
+    margin: 20px;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.display-image{
+    height: 80%;
+    width: 80%;
+    margin-bottom: 1.5rem;
+}
+
+.display-id{
+    font-size: 1.5rem;
+    margin-bottom:20px ;
+}
+
+.display-name{
+    font-size:2rem;
+}
+
+.display-course{
+    font-size: 1.8rem;
+}
+
+.results{
+    font-size: 2rem;
+    margin:20px;
+}
+
+
+.marks h3{
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 500;
+    margin: 1rem;
+}
+
+.box >h1{
+    font-size: 40px;
+}
+
+.submit{
+    background-color: #73AF6F;
+    height: 2.5rem;
+    width: 6rem;
+    font-size: 1.2rem;
+}
+
+.edit-card{
+    width:100vw;
+    background-color:#FFB76C;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-box{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-image{
+    width: 70%;
+}
+
+.edit-name{
+    font-size: 1.4rem;
+}
+
+.edit-student-details{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-h2{
+    font-size: 2rem;
+    margin: 10px;
+}
+
+.edit-name{
+    font-size: 1.5rem;
+}
+
+.edit-id{
+    font-size: 1rem;
+}
+
+.edit-view{
+    padding: 1.5rem;
+}
+
+label{
+    font-size: 1.4rem;
+}
+
+input{
+    height: 2rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.edit-h2{
+    margin: 15px 0 0 0;
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 350px){
+    .image{
+        display: none;
+    }
+    h1{
+        font-size: 1.5rem;
+        margin-left: 1rem;
+    }
+
+    #add-student{
+       width: 5rem;
+       padding: 5px;
+    }
+
+    #add-student a{
+       font-size: small;
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student details </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="box">
+        <h2 class="edit-h2">Edit Student details:</h2>
+        <div class="edit-student-details">
+            <div class="img">
+                <img src="/images/student.png" alt="student image" class="edit-image">
+            </div>
+             <h4 class="name edit-name">Name: <%=student.name %></h4>
+            <h3 class="card-no edit-id">Id no : <%= student.id %></h3>
+        </div>
+        <div class="display-view edit-view">
+            <div class="details">
+                <div class="info">
+                    <div class="edit-marks">
+                        <form method="POST" action="/home/<%=student.id %>/?_method=PATCH">
+                            <label >Name :</label>
+                            <input type="text" name="name" placeholder="<%=student.name %>">
+                            <br><br>
+                            <label >Course : </label>
+                            <input type="text" name="course" placeholder="<%=student.course %>">
+                            
+                            <h2 class="edit-h2">Results</h2>
+
+                            <label >English :</label>
+                            <input type="text" name="english" placeholder="<%=student.results.english %>">
+                             <br><br>
+                            <label >Maths :</label>
+                            <input type="text" name="maths" placeholder="<%=student.results.maths %>">
+                            <br><br>
+                            <label >Science :</label>
+                            <input type="text" name="Science" placeholder="<%=student.results.Science %>">
+                            <br><br>
+                            <button class="submit" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

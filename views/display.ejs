@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student details </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="box">
+        <h1 class="display-h1">Student details:</h1>
+        <div class="display-view">
+            <div class="img">
+                <img src="/images/student.png" alt="student image" class="display-image">
+            </div>
+            <div class="details">
+                <div class="info">
+                    <h3 class="card-no display-id">Id no : <%= student.id %>
+                    </h3>
+                    <h4 class="name display-name">Name: <%=student.name %>
+                    </h4>
+                    <h4 class="course display-course">Course: <%=student.course %>
+                    </h4>
+                    <h4 class="results">Results :</h4>
+                    <div class="marks">
+                        <h3>English : <%=student.results.english %>
+                        </h3>
+                        <h3>Maths : <%=student.results.maths %>
+                        </h3>
+                        <h3>Science : <%=student.results.Science %>
+                        </h3>
+                        <button class="submit"><a href="/home">View all.</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
