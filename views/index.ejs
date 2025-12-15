@@ -14,21 +14,21 @@
     </div>
     <hr>
      <div class="container">
-       <% for(student of students){ %>
+       <% for(result of results){ %>
              <div class="card">
                 <div class="display-img">
                     <img src="/images/student.png" alt="student image" class="image">
                 </div>
                 <div class="details">
                     <div class="info">
-                    <h3 class="card-no">Id no : <%=student.id %></h3>
-                    <h4 class="name">Name: <%=student.name %></h4>
-                    <h4 class="course">Course: <%=student.course %></h4>
+                    <h3 class="card-no">Id no : <%=result.id %></h3>
+                    <h4 class="name">Name: <%=result.name %></h4>
+                    <h4 class="course">Course: <%=result.course %></h4>
                     </div>
                     <div class="info-edit">
-                        <button class="view"><a href="/home/<%=student.id %>" >View</a></button>
-                        <button class="edit"><a href="/home/<%=student.id%>/edit">Edit</a></button>
-                        <form method="post"  action="/home/<%=student.id%>?_method=DELETE">
+                        <button class="view"><a href="/home/<%=result.id %>" >View</a></button>
+                        <button class="edit"><a href="/home/<%=result.id%>/edit">Edit</a></button>
+                        <form method="post"  action="/home/<%=result.id%>?_method=DELETE">
                                <button id="delete">Delete</button>
                         </form>
                     </div>
@@ -36,8 +36,6 @@
              </div>
        <% } %>
      </div>
-
-
 
     <script src="./script.js"></script>
 </body>

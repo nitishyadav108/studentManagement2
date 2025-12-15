@@ -1,152 +1,142 @@
-const express=require("express");
-const app=express();
-const path=require("path");
-const port=8080;
-const {v4:uuidv4}=require("uuid");
-const methodOverride=require("method-override");
+const express = require("express");
+const app = express();
+const path = require("path");
+const port = process.env.PORT || 8080;
+const { v4: uuidv4 } = require("uuid");
+const methodOverride = require("method-override");
+const mysql = require('mysql2');
 
-app.use(express.urlencoded({extended:true}));
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'college',
+    password: 'Nitish@108'
+});
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride("_method"));
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"views"));
-app.use(express.static(path.join(__dirname,"public")));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 
-let students=[
-    {   
-    id: uuidv4(),
-    name: "Nitish yadav",
-    course: "MCA",
-    results: {
-        english: 96,
-        maths: 95,
-        Science: 98
-    }
-},
-{   
-    id: uuidv4(),
-    name: "Pooja yadav",
-    course: "BSC",
-    results: {
-        english: 96,
-        maths: 95,
-        Science: 98
-    }
-},
-{   
-    id: uuidv4(),
-    name: "Aarti Yadav",
-    course: "BCOM",
-    results: {
-        english: 96,
-        maths: 95,
-        Science: 98
-    }
-},
-{
-    id: uuidv4(),
-    name: "Rohit Sharma",
-    course: "BCA",
-    results: {
-        english: 85,
-        maths: 88,
-        Science: 90
-    }
-},
-{
-    id: uuidv4(),
-    name: "Kajal Verma",
-    course: "MBA",
-    results: {
-        english: 92,
-        maths: 89,
-        Science: 94
-    }
-},
-{
-    id: uuidv4(),
-    name: "Arjun Patel",
-    course: "BTech",
-    results: {
-        english: 78,
-        maths: 82,
-        Science: 80
-    }
-},
-{
-    id: uuidv4(),
-    name: "Megha Singh",
-    course: "MSc",
-    results: {
-        english: 90,
-        maths: 87,
-        Science: 91
-    }
-}
-]
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Listening to the port ${port}`);
 })
 
-app.get("/home",(req,res)=>{
-    res.render("index.ejs",{students});
+app.get("/home", (req, res) => {
+    let q = `SELECT * FROM student`;
+    try {
+        connection.query(q, (err, results) => {
+            if (err) throw err;
+            res.render("index.ejs", { results });
+        });
+    } catch (err) {
+        console.log(err);
+    }
+
 });
 
-app.get("/home/add",(req,res)=>{
+app.get("/home/add", (req, res) => {
     res.render("add.ejs");
 });
 
-app.post("/home",(req,res)=>{
-    let id=uuidv4();
-    let {name,course,english,maths,Science}=req.body;
-    let newStudent = {
-        id,
-        name,
-        course,
-        results: {
-            english: Number(english),
-            maths: Number(maths),
-            Science: Number(Science)
-        }
-    };
-    students.push(newStudent);
-    res.redirect("/home");
-});
-
-app.get("/home/:id",(req,res)=>{
-    let {id}=req.params;
-    let student=students.find((s)=>id === s.id);
-    res.render("display.ejs",{student});
-});
-
-app.get("/home/:id/edit",(req,res)=>{
-    let {id}=req.params;
-    let student=students.find((s)=>id === s.id);
-    res.render("edit.ejs",{student});
-});
-
-
-app.patch("/home/:id",(req,res)=>{
-    let {id }= req.params;
-    let {name,course,english,maths,Science}=req.body;
-    console.log(req.body);
-    let student=students.find((s)=> id === s.id);
-    if (!student) {
-        return res.send("❌ Student Not Found");
+app.post("/home", (req, res) => {
+    let id = uuidv4();
+    let { name, course, english, maths, science } = req.body;
+    let student = [id, name, course, english, maths, science];
+    let q = `INSERT INTO student (id,name,course,english,maths,science) VALUES (?,?,?,?,?,?)`;
+    try {
+        connection.query(q, student, (err, result) => {
+            if (err) throw err;
+            console.log("student added to the database");
+            res.redirect("/home");
+        });
+    } catch (err) {
+        console.log(err);
     }
-    if (name) student.name = name;
-    if (course) student.course = course;
-    if (english) student.results.english = Number(english);
-    if (maths) student.results.maths = Number(maths);
-    if (Science) student.results.Science = Number(Science);
-    console.log(student);
-    res.redirect("/home");
 });
 
-app.delete("/home/:id",(req,res)=>{
-    let {id}=req.params;
-    students=students.filter((s)=> id !== s.id);
-    console.log(student);
+app.get("/home/:id", (req, res) => {
+    let { id } = req.params;
+    let q = `SELECT * FROM student WHERE id='${id}'`;
+    try {
+        connection.query(q, (err, result) => {
+            if (err) throw err;
+            let student = result[0];
+            res.render("display.ejs", { student });
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/home/:id/edit", (req, res) => {
+    let { id } = req.params;
+    let q = `SELECT * FROM student WHERE id='${id}'`;
+    try {
+        connection.query(q, (err, result) => {
+            if (err) throw err;
+            let student = result[0];
+            res.render("edit.ejs", { student });
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+app.patch("/home/:id", (req, res) => {
+    let { id } = req.params;
+    let { name, course, english, maths, science } = req.body;
+    name    = name?.trim()    || null;
+    course = course?.trim()  || null;
+
+    english = english === "" ? null : Number(english);
+    maths   = maths   === "" ? null : Number(maths);
+    science = science === "" ? null : Number(science);
+    let students=[name, course, english, maths, science,id];
+    let q = `SELECT * FROM student WHERE id=?`;
+    try {
+        connection.query(q,[id], (err, result) => {
+            if (err) throw err;
+            if (result.length === 0) {
+                return res.send("❌ Student Not Found");
+            } else {
+                let q2 =`UPDATE student SET
+                           name = IFNULL(?, name),
+                           course = IFNULL(?, course),
+                           english = IFNULL(?, english),
+                           maths = IFNULL(?, maths),
+                           science = IFNULL(?, science)
+                         WHERE id = ?
+                         `;
+                try {
+                    connection.query(q2, students, (err, result) => {
+                        if (err) throw err;
+                        res.redirect("/home");
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.delete("/home/:id", (req, res) => {
+    let { id } = req.params;
+    let q=`DELETE FROM student WHERE id=?`;
+    connection.query(q,[id],(err,result)=>{
+        try{
+            if (err) throw err;
+            console.log(result);
+        }catch(err){
+            console.log(err);
+        }
+    });
     res.redirect("/home");
 });
